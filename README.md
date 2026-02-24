@@ -25,6 +25,6 @@ The data originates from the Kaggle competition: [Give Me Some Credit](https://w
 4. **Model Building:** Training an XGBoost Classifier customized for highly imbalanced tabular data.
 5. **Comprehensive Evaluation:** Validating the model using Accuracy, Precision, Recall, F1-Score, ROC-AUC, and a Confusion Matrix.
 
-# Official Kaggle Results
+# Official Kaggle Result
 
 #<img width="1321" height="750" alt="Screenshot 2026-02-24 200927" src="https://github.com/user-attachments/assets/5bfbf485-c313-48ae-8afe-9db8f364f0e7" />
