@@ -24,3 +24,5 @@ The data originates from the Kaggle competition: [Give Me Some Credit](https://w
 3. **Data Preprocessing:** Imputing missing values using the median strategy.
 4. **Model Building:** Training an XGBoost Classifier customized for highly imbalanced tabular data.
 5. **Comprehensive Evaluation:** Validating the model using Accuracy, Precision, Recall, F1-Score, ROC-AUC, and a Confusion Matrix.
+
+<img width="2183" height="925" alt="diagram-export-24-02-2026-19_39_57" src="https://github.com/user-attachments/assets/625ce181-6f11-4b13-a88a-6ff7e820ad64" />
