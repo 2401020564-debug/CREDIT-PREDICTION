@@ -5,7 +5,7 @@ AIML training project: Give Me Some Credit default prediction model.
 ## Project Overview
 This repository contains the machine learning pipeline for predicting financial distress within two years. This project was developed as part of our AIML training curriculum.
 
-## Team:
+## Team
 * Group - 5
 * Name - The Debuggers
 ## Team Members
