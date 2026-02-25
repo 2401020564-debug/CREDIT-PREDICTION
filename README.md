@@ -31,3 +31,5 @@ The data originates from the Kaggle competition: [Give Me Some Credit](https://w
 
 ## UI Interface
 https://credit-prediction-wduzmmmnlcaxzhdmqn76un.streamlit.app/
+
+<img width="707" height="908" alt="Screenshot 2026-02-25 183438" src="https://github.com/user-attachments/assets/1abc43bd-125c-4af0-a0fa-8e85939eae6d" />
