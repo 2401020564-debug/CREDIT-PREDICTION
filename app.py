@@ -1,9 +1,10 @@
 import streamlit as st
 import pandas as pd
-import joblib
+import xgboost as xgb
 
-# 1. Load the trained model
-model = joblib.load('credit_model.pkl')
+# 1. Load the trained XGBoost model from JSON
+model = xgb.XGBClassifier()
+model.load_model('credit_model.json')
 
 # 2. Build the UI (Title and Description)
 st.title("🏦 Give Me Some Credit: Default Predictor")
@@ -45,4 +46,5 @@ if st.button("Predict Default Risk"):
     if prediction[0] == 1:
         st.error(f"⚠️ High Risk! The model predicts a Default. (Probability: {probability:.2%})")
     else:
+
         st.success(f"✅ Low Risk. The model predicts No Default. (Probability: {probability:.2%})")
