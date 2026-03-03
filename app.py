@@ -52,9 +52,6 @@ div.stButton > button:first-child:hover {
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
-# --- 2. LOAD MODEL ---
-model = joblib.load('credit_model.pkl')
-
 # --- 3. BUILD THE UI HEADER ---
 st.title("🏦 Give Me Some Credit: Default Predictor")
 st.write("Enter the borrower's details below to predict if they will experience financial distress in the next 2 years.")
@@ -119,4 +116,5 @@ if st.button("Predict Default Risk"):
         st.error(f"⚠️ High Risk! The model predicts a Default. (Probability: {probability:.2%})")
     else:
         st.success(f"✅ Low Risk. The model predicts No Default. (Probability: {probability:.2%})")
+
 
