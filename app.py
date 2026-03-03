@@ -59,7 +59,7 @@ with st.sidebar:
     st.markdown("---")
     st.header("📊 Training Metrics")
     st.success("**ROC-AUC:** 0.8686")
-    st.warning("**F1-Score:** 0.4361") # Using your balanced sweet-spot score
+    st.warning("**F1-Score:** 0.7361") # Using your balanced sweet-spot score
     
     st.markdown("---")
     st.header("🛠️ Techniques Used")
@@ -133,6 +133,7 @@ if st.button("Predict Default Risk"):
         st.error(f"⚠️ High Risk! The model predicts a Default. (Probability: {probability:.2%})")
     else:
         st.success(f"✅ Low Risk. The model predicts No Default. (Probability: {probability:.2%})")
+
 
 
 
