@@ -1,55 +1,99 @@
 import streamlit as st
 import pandas as pd
-import xgboost as xgb
+import xgboost as xgb # Ensure you use xgboost for .json models
 
-# Replace the joblib.load line with this:
 model = xgb.XGBClassifier()
 model.load_model('credit_model.json')
-# --- 1. PAGE SETUP & CSS ---
-st.set_page_config(page_title="Credit Predictor", layout="wide")
 
-custom_css = """
+# --- 1. PAGE SETUP & PREMIUM CSS ---
+st.set_page_config(page_title="Credit Risk AI", layout="wide")
+
+st.markdown("""
 <style>
-/* Gradient Background */
-[data-testid="stAppViewContainer"] {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    color: white;
-}
+    /* Premium Mesh Gradient Background */
+    [data-testid="stAppViewContainer"] {
+        background-color: #0f172a;
+        background-image: 
+            radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.5) 0, transparent 50%), 
+            radial-gradient(at 50% 0%, rgba(15, 23, 42, 1) 0, transparent 50%), 
+            radial-gradient(at 100% 0%, rgba(30, 58, 138, 0.5) 0, transparent 50%);
+        color: #f8fafc;
+    }
 
-/* Make the header transparent */
-[data-testid="stHeader"] {
-    background: rgba(0,0,0,0);
-}
+    /* Glassmorphism Cards for Inputs */
+    div[data-testid="stNumberInput"] {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 15px;
+        transition: transform 0.2s ease;
+    }
+    div[data-testid="stNumberInput"]:hover {
+        transform: translateY(-5px);
+        border: 1px solid rgba(212, 175, 55, 0.4); /* Gold glow on hover */
+    }
 
-/* Style the Input Boxes to look like elevated cards */
-div[data-testid="stNumberInput"] {
-    background-color: #334155;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-    border-left: 4px solid #475569; 
-}
+    /* Gold "Predict" Button */
+    div.stButton > button:first-child {
+        background: linear-gradient(90deg, #d4af37 0%, #f1c40f 100%);
+        color: #0f172a;
+        font-weight: 800;
+        border: none;
+        padding: 15px;
+        border-radius: 12px;
+        width: 100%;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
 
-/* Style the Predict Button */
-div.stButton > button:first-child {
-    background-color: #d4af37; /* Premium Gold */
-    color: #111827;
-    font-weight: bold;
-    font-size: 18px;
-    border-radius: 8px;
-    border: none;
-    padding: 10px 24px;
-    width: 100%;
-}
-
-/* Button Hover Effect */
-div.stButton > button:first-child:hover {
-    background-color: #f1c40f;
-    transform: translateY(-2px);
-    transition: 0.2s;
-}
+    /* Sidebar Styling */
+    section[data-testid="stSidebar"] {
+        background-color: rgba(15, 23, 42, 0.8);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
 </style>
-"""
+""", unsafe_allow_html=True)
+
+# --- 2. SIDEBAR TECHNICAL SPECS ---
+with st.sidebar:
+    st.title("🛡️ Model Stats")
+    st.markdown("### Architecture")
+    st.code("XGBoost Classifier")
+    
+    st.markdown("### Performance")
+    st.metric(label="ROC-AUC", value="0.8686")
+    st.metric(label="F1-Score", value="0.4361")
+    
+    st.markdown("---")
+    st.write("**Methodology:** Trained using SMOTE for class balance and custom probability thresholding to optimize Precision.")
+
+# --- 3. MAIN UI CONTENT ---
+st.title("🏦 Give Me Some Credit: Default Predictor")
+st.write("Leveraging Gradient Boosting to analyze borrower reliability.")
+st.markdown("---")
+
+# Use columns to organize the "Glass" cards
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.markdown("#### 👤 Profile")
+    age = st.number_input("Age", min_value=18, value=40)
+    monthly_income = st.number_input("Monthly Income ($)", value=5000.0)
+    dependents = st.number_input("Dependents", value=1)
+
+with col2:
+    st.markdown("#### 📊 Ratios")
+    debt_ratio = st.number_input("Debt Ratio", value=0.3)
+    unsecured_lines = st.number_input("Credit Utilization", value=0.1)
+    open_lines = st.number_input("Open Credit Lines", value=5)
+
+with col3:
+    st.markdown("#### ⏳ History")
+    late_30 = st.number_input("30-59 Days Late", value=0)
+    late_60 = st.number_input("60-89 Days Late", value=0)
+    late_90 = st.number_input("90+ Days Late", value=0)
+
+# Prediction Button and Logic remains the same...
 # --- SIDEBAR: MODEL INFO ---
 with st.sidebar:
     st.header("⚙️ Model Specifications")
@@ -133,6 +177,7 @@ if st.button("Predict Default Risk"):
         st.error(f"⚠️ High Risk! The model predicts a Default. (Probability: {probability:.2%})")
     else:
         st.success(f"✅ Low Risk. The model predicts No Default. (Probability: {probability:.2%})")
+
 
 
 
