@@ -5,7 +5,7 @@ import xgboost as xgb
 # --- 1. PAGE SETUP & PREMIUM CSS ---
 st.set_page_config(page_title="Credit Risk AI", layout="wide")
 
-# We define the CSS first to avoid the NameError you encountered
+# This block applies the background, glassmorphism, and custom result styles
 st.markdown("""
 <style>
     /* Premium Mesh Gradient Background */
@@ -41,32 +41,37 @@ st.markdown("""
         letter-spacing: 1px;
     }
 
-    /* Stylized Prediction Alert (Glowing Sunset Orange/Neon Green) */
+    /* Attractive Prediction Box Styling */
     .prediction-box {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(12px);
         border-radius: 15px;
         padding: 25px;
         margin-top: 25px;
-        border: 1px solid;
-        font-size: 20px;
+        border: 2px solid;
+        font-size: 22px;
         font-weight: bold;
         display: flex;
         align-items: center;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
     .prediction-icon {
-        font-size: 30px;
-        margin-right: 15px;
+        font-size: 35px;
+        margin-right: 20px;
     }
     .prediction-text {
         color: #f8fafc;
     }
+
+    /* Sidebar Styling */
+    section[data-testid="stSidebar"] {
+        background-color: rgba(15, 23, 42, 0.8);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
 </style>
 """, unsafe_allow_html=True)
-st.markdown(css_styles, unsafe_allow_html=True)
 
 # --- 2. LOAD MODEL ---
-# Using the XGBoost method as seen in your code snippets
 model = xgb.XGBClassifier()
 model.load_model('credit_model.json')
 
@@ -74,9 +79,10 @@ model.load_model('credit_model.json')
 with st.sidebar:
     st.title("🛡️ Model Stats")
     st.info("**Algorithm:** XGBoost Classifier")
-    st.write("Chosen for its ability to handle non-linear financial data.")
+    st.write("Chosen for its superior handling of imbalanced financial data.")
     
     st.markdown("---")
+    st.header("📊 Performance")
     st.metric(label="ROC-AUC Score", value="0.8686")
     st.metric(label="Balanced F1-Score", value="0.7361")
     
@@ -88,10 +94,9 @@ with st.sidebar:
 
 # --- 4. MAIN UI CONTENT ---
 st.title("🏦 Give Me Some Credit: Default Predictor")
-st.write("Enter the borrower's details below to predict financial distress risk.")
+st.write("Leveraging Gradient Boosting to analyze borrower financial reliability.")
 st.markdown("---")
 
-# Use columns to organize the "Glass" cards as seen in your design
 st.subheader("👤 Borrower Profile & Financials")
 col1, col2, col3 = st.columns(3)
 
@@ -116,7 +121,6 @@ st.markdown("###")
 
 # --- 5. PREDICTION LOGIC ---
 if st.button("Predict Default Risk"):
-    # Group inputs into dataframe matching training format
     input_data = pd.DataFrame([[
         unsecured_lines, age, late_30, debt_ratio, monthly_income, 
         open_credit_lines, time_90_days_late, real_estate_loans, 
@@ -134,7 +138,18 @@ if st.button("Predict Default Risk"):
 
     st.markdown("---")
     if probability >= optimal_threshold:
-        st.error(f"⚠️ High Risk! The model predicts a Default. (Probability: {probability:.2%})")
+        # Attractive Glowing High Risk Box
+        st.markdown(f"""
+        <div class="prediction-box" style="border-color: #ff4b4b; box-shadow: 0 0 20px rgba(255, 75, 75, 0.4);">
+            <div class="prediction-icon">⚠️</div>
+            <div class="prediction-text">High Risk! The model predicts a Default.<br><small>Probability: {probability:.2%}</small></div>
+        </div>
+        """, unsafe_allow_html=True)
     else:
-        st.success(f"✅ Low Risk. The model predicts No Default. (Probability: {probability:.2%})")
-
+        # Attractive Glowing Low Risk Box
+        st.markdown(f"""
+        <div class="prediction-box" style="border-color: #2ecc71; box-shadow: 0 0 20px rgba(46, 204, 113, 0.4);">
+            <div class="prediction-icon">✅</div>
+            <div class="prediction-text">Low Risk. The model predicts No Default.<br><small>Probability: {probability:.2%}</small></div>
+        </div>
+        """, unsafe_allow_html=True)
