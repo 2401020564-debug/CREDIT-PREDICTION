@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
-import joblib
+import xgboost as xgb
 
+# Replace the joblib.load line with this:
+model = xgb.XGBClassifier()
+model.load_model('credit_model.json')
 # --- 1. PAGE SETUP & CSS ---
 st.set_page_config(page_title="Credit Predictor", layout="wide")
 
@@ -116,3 +119,4 @@ if st.button("Predict Default Risk"):
         st.error(f"⚠️ High Risk! The model predicts a Default. (Probability: {probability:.2%})")
     else:
         st.success(f"✅ Low Risk. The model predicts No Default. (Probability: {probability:.2%})")
+
