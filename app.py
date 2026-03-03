@@ -168,3 +168,4 @@ if st.button("Predict Default Risk"):
         st.error(f"⚠️ High Risk! The model predicts a Default. (Probability: {probability:.2%})")
     else:
         st.success(f"✅ Low Risk. The model predicts No Default. (Probability: {probability:.2%})")
+
