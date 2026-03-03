@@ -50,6 +50,23 @@ div.stButton > button:first-child:hover {
 }
 </style>
 """
+# --- SIDEBAR: MODEL INFO ---
+with st.sidebar:
+    st.header("⚙️ Model Specifications")
+    st.info("**Algorithm:** XGBoost Classifier")
+    st.write("XGBoost was chosen for its ability to handle imbalanced financial data and non-linear relationships.")
+    
+    st.markdown("---")
+    st.header("📊 Training Metrics")
+    st.success("**ROC-AUC:** 0.8686")
+    st.warning("**F1-Score:** 0.4361") # Using your balanced sweet-spot score
+    
+    st.markdown("---")
+    st.header("🛠️ Techniques Used")
+    st.write("- **Handling Imbalance:** SMOTE Over-sampling")
+    st.write("- **Optimization:** Custom Probability Thresholding")
+    st.write("- **Feature Scaling:** RobustScaler")
+    
 st.markdown(custom_css, unsafe_allow_html=True)
 
 # --- 3. BUILD THE UI HEADER ---
@@ -116,5 +133,6 @@ if st.button("Predict Default Risk"):
         st.error(f"⚠️ High Risk! The model predicts a Default. (Probability: {probability:.2%})")
     else:
         st.success(f"✅ Low Risk. The model predicts No Default. (Probability: {probability:.2%})")
+
 
 
