@@ -6,7 +6,7 @@ import xgboost as xgb
 st.set_page_config(page_title="Credit Risk AI", layout="wide")
 
 # We define the CSS first to avoid the NameError you encountered
-css_styles = """
+st.markdown("""
 <style>
     /* Premium Mesh Gradient Background */
     [data-testid="stAppViewContainer"] {
@@ -27,7 +27,7 @@ css_styles = """
         border-radius: 15px;
         transition: transform 0.2s ease;
     }
-    
+
     /* Gold "Predict" Button */
     div.stButton > button:first-child {
         background: linear-gradient(90deg, #d4af37 0%, #f1c40f 100%);
@@ -41,13 +41,28 @@ css_styles = """
         letter-spacing: 1px;
     }
 
-    /* Sidebar Styling */
-    section[data-testid="stSidebar"] {
-        background-color: rgba(15, 23, 42, 0.8);
-        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    /* Stylized Prediction Alert (Glowing Sunset Orange/Neon Green) */
+    .prediction-box {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 25px;
+        margin-top: 25px;
+        border: 1px solid;
+        font-size: 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .prediction-icon {
+        font-size: 30px;
+        margin-right: 15px;
+    }
+    .prediction-text {
+        color: #f8fafc;
     }
 </style>
-"""
+""", unsafe_allow_html=True)
 st.markdown(css_styles, unsafe_allow_html=True)
 
 # --- 2. LOAD MODEL ---
@@ -122,3 +137,4 @@ if st.button("Predict Default Risk"):
         st.error(f"⚠️ High Risk! The model predicts a Default. (Probability: {probability:.2%})")
     else:
         st.success(f"✅ Low Risk. The model predicts No Default. (Probability: {probability:.2%})")
+
